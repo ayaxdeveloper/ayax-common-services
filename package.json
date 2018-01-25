@@ -1,0 +1,28 @@
+{
+  "name": "ayax-common-services",
+  "version": "1.0.0",
+  "description": "Ayax Common Services",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maphskiy/ayax-common-services.git"
+  },
+  "author": "maphskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maphskiy/ayax-common-services/issues"
+  },
+  "homepage": "https://github.com/maphskiy/ayax-common-services#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "ayax-common-types": "^1.0.15",
+    "moment": "^2.20.1"
+  },
+  "devDependencies": {}
+}

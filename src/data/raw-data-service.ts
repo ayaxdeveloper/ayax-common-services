@@ -1,8 +1,12 @@
 import { AxiosPromise } from "axios";
 import { BaseHttpService } from "./base-http-service";
-import { OperationResult, Operation, IRawDataService } from "ayax-common-types";
+import { OperationResult, Operation, IRawDataService, IHttpService } from "ayax-common-types";
 
 export class RawDataService extends BaseHttpService implements IRawDataService {
+
+    constructor(httpService: IHttpService, postFix?: string) {
+        super(httpService, postFix);
+    }
 
     rawGet<T>(url: string): AxiosPromise<OperationResult<T>> {
         return this._http.get(url);

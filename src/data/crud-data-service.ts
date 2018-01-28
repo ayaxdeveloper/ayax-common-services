@@ -1,8 +1,12 @@
 import { AxiosPromise } from "axios";
 import { BaseHttpService } from "./base-http-service";
-import { OperationResult, Operation, ICrudDataService } from "ayax-common-types";
+import { OperationResult, Operation, ICrudDataService, IHttpService } from "ayax-common-types";
 
 export class CrudDataService extends BaseHttpService implements ICrudDataService {
+
+    constructor(httpService: IHttpService, postFix?: string) {
+        super(httpService, postFix);
+    }
 
     get<T>(id: any): AxiosPromise<OperationResult<T>> {
         return this._http.get(`${this._postFix}/get/${id}`);

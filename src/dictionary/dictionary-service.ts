@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import { SelectItem, Dictionary, IDictionaryService, IHttpService, IListDataService, IClientSettings } from "ayax-common-types";
 import { ListDataService } from '../data/list-data-service';
 
-export default class DictionaryService implements IDictionaryService {
+export class DictionaryService implements IDictionaryService {
     private _httpService: IHttpService;
     private _clientSettings: IClientSettings;
     private _predefinedDictionary: {[name: string] : Dictionary[]}

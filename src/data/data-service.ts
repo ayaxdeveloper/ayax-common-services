@@ -1,8 +1,12 @@
 import { AxiosPromise } from "axios";
 import { BaseHttpService } from "./base-http-service";
-import { OperationResult, Operation, SearchResponse, IDataService } from "ayax-common-types";
+import { OperationResult, Operation, SearchResponse, IDataService, IHttpService } from "ayax-common-types";
 
 export class DataService extends BaseHttpService implements IDataService {
+
+    constructor(httpService: IHttpService, postFix?: string) {
+        super(httpService, postFix);
+    }
 
     get<T>(id: any): AxiosPromise<OperationResult<T>> {
         return this._http.get(`${this._postFix}/get/${id}`);

@@ -2,10 +2,12 @@ import { AxiosPromise } from "axios";
 import { BaseHttpService } from "./base-http-service";
 import { OperationResult, Operation, IOperationService, IHttpService } from "ayax-common-types";
 
-export class OperationService extends BaseHttpService implements IOperationService {
+export class OperationService implements IOperationService {
+
+    private _http: IHttpService;
 
     constructor(httpService: IHttpService) {
-        super(httpService);
+        this._http = httpService;
     }
 
     get<T>(url: string): AxiosPromise<OperationResult<T>> {

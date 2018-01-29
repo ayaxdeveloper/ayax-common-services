@@ -42,8 +42,8 @@ export class DictionaryService implements IDictionaryService {
     }
 
     private async FromApi(name: string): Promise<Dictionary[]> {
-        try {
-            if(this._predefinedDictionary[name.toLocaleLowerCase()].length > 0) {
+        try { 
+            if(this._predefinedDictionary[name.toLocaleLowerCase()]) {
                 return this._predefinedDictionary[name.toLocaleLowerCase()];
             } else {
                 let service: IListDataService = new ListDataService(this._httpService, `/${name.toLocaleLowerCase()}`);
@@ -64,7 +64,7 @@ export class DictionaryService implements IDictionaryService {
 
 
     private ToCache(name: string, data: Dictionary[]) {
-        console.log(moment().add(this._clientSettings.clientCacheExpiresAfter, "m").toDate());
+        // console.log(moment().add(this._clientSettings.clientCacheExpiresAfter, "m").toDate());
         localStorage.setItem(name.toLowerCase(), JSON.stringify(
             
             new DictionaryCache({

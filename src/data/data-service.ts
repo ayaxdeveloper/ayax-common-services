@@ -4,10 +4,6 @@ import { OperationResult, Operation, SearchResponse, IDataService, IHttpService 
 
 export class DataService extends BaseHttpService implements IDataService {
 
-    constructor(httpService: IHttpService, postFix?: string) {
-        super(httpService, postFix);
-    }
-
     get<T>(id: any): AxiosPromise<OperationResult<T>> {
         return this._http.get(`${this._postFix}/get/${id}`);
     }

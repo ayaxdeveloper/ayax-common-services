@@ -4,10 +4,6 @@ import { OperationResult, Operation, ICrudDataService, IHttpService } from "ayax
 
 export class CrudDataService extends BaseHttpService implements ICrudDataService {
 
-    constructor(httpService: IHttpService, postFix?: string) {
-        super(httpService, postFix);
-    }
-
     get<T>(id: any): AxiosPromise<OperationResult<T>> {
         return this._http.get(`${this._postFix}/get/${id}`);
     }

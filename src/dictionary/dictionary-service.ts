@@ -6,27 +6,27 @@ import { SearchDataService } from '..';
 export class DictionaryService implements IDictionaryService {
     private _httpService: IHttpService;
     private _clientSettings: IClientSettings;
-    private _predefinedDictionary: {[name: string] : Dictionary[]}
+    private _predefinedDictionary: {[name: string] : any[]}
     constructor(httpService: IHttpService, clientSettings: IClientSettings, predefinedDictionary?: {[name: string] : Dictionary[]}) {
         this._httpService = httpService;
         this._clientSettings = clientSettings;
         this._predefinedDictionary = predefinedDictionary ? predefinedDictionary : {};
     }
-    public GetDictionary(name: string, useSearch?: boolean): Promise<Dictionary[]> {
+    public GetDictionary<T>(name: string, useSearch?: boolean): Promise<T[]> {
         return new Promise((resolve) => {
             let storage = localStorage.getItem(name);
             if(storage) {
-                let cache: DictionaryCache = JSON.parse(storage);
+                let cache: DictionaryCache<T> = JSON.parse(storage);
                 if(moment(cache.expires).isAfter() && cache.data.length > 0) {
                     resolve(cache.data);
                 } else {
-                    this.FromApi(name, useSearch).then((response) => {
+                    this.FromApi<T>(name, useSearch).then((response) => {
                         this.ToCache(name, response);
                         resolve(response);
                     });
                 }
             } else {
-                this.FromApi(name, useSearch).then((response) => {
+                this.FromApi<T>(name, useSearch).then((response) => {
                     this.ToCache(name, response);
                     resolve(response);
                 });
@@ -34,21 +34,13 @@ export class DictionaryService implements IDictionaryService {
         })
     }
 
-    public GetSelectItems(name: string, useSearch?: boolean): Promise<SelectItem[]> {
-        return new Promise((resolve)=> {
-            this.GetDictionary(name, useSearch).then((response) => {
-                resolve(response.map(x=> new SelectItem({text: x.name, value: x.id})))
-            })
-        });
-    }
-
-    private async FromApi(name: string, useSearch?: boolean): Promise<Dictionary[]> {
+    private async FromApi<T>(name: string, useSearch?: boolean): Promise<T[]> {
         try { 
             if(this._predefinedDictionary[name.toLocaleLowerCase()]) {
                 return this._predefinedDictionary[name.toLocaleLowerCase()];
             } else {
                 if(useSearch) {
-                    let response = await new SearchDataService(this._httpService, `/${name.toLocaleLowerCase()}`).search<Dictionary[]>({page: 1, perPage: 1000});
+                    let response = await new SearchDataService(this._httpService, `/${name.toLocaleLowerCase()}`).search<T[]>({page: 1, perPage: 1000});
                     let operation = response.data;
                     if (operation.status === 0) {
                         return operation.result.data;
@@ -56,7 +48,7 @@ export class DictionaryService implements IDictionaryService {
                         throw new Error(operation.message); 
                     }  
                 } else {
-                    let response = await new ListDataService(this._httpService, `/${name.toLocaleLowerCase()}`).list<Dictionary>();
+                    let response = await new ListDataService(this._httpService, `/${name.toLocaleLowerCase()}`).list<T>();
                     let operation = response.data;
                     if (operation.status === 0) {
                         return operation.result;
@@ -73,20 +65,20 @@ export class DictionaryService implements IDictionaryService {
 
 
 
-    private ToCache(name: string, data: Dictionary[]) {
+    private ToCache<T>(name: string, data: T[]) {
         // console.log(moment().add(this._clientSettings.clientCacheExpiresAfter, "m").toDate());
         localStorage.setItem(name.toLowerCase(), JSON.stringify(
             
-            new DictionaryCache({
+            new DictionaryCache<T>({
                 data: data, expires: moment().add(this._clientSettings.clientCacheExpiresAfter, "m").toDate()
             })));
     }
 }
 
-class DictionaryCache {
-    data: Dictionary[];
-    expires: Date;
-    constructor(init?: Partial<DictionaryCache>) {
+class DictionaryCache<T> {
+    data: T[] = new Array<T>();
+    expires: Date = new Date();
+    constructor(init?: Partial<DictionaryCache<T>>) {
         if(init) {
             Object.assign(this, init);
         }

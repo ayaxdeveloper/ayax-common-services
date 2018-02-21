@@ -14,21 +14,22 @@ export class DictionaryService implements IDictionaryService {
     }
 
     public GetDictionary<T>(name: string, postfix?: string, useSearch?: boolean): Promise<T[]> {
+        const dictionaryName = `${name}${postfix ? `_${postfix}`: ""}`;
         return new Promise((resolve) => {
-            let storage = localStorage.getItem(name);
+            let storage = localStorage.getItem(dictionaryName);
             if(storage) {
                 let cache: DictionaryCache<T> = JSON.parse(storage);
                 if(moment(cache.expires).isAfter() && cache.data.length > 0) {
                     resolve(cache.data);
                 } else {
                     this.FromApi<T>(name, useSearch).then((response) => {
-                        this.ToCache(name, response);
+                        this.ToCache(dictionaryName, response);
                         resolve(response);
                     });
                 }
             } else {
                 this.FromApi<T>(name, useSearch).then((response) => {
-                    this.ToCache(name, response);
+                    this.ToCache(dictionaryName, response);
                     resolve(response);
                 });
             }

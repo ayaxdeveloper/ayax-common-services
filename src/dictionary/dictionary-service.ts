@@ -12,7 +12,8 @@ export class DictionaryService implements IDictionaryService {
         this._clientSettings = clientSettings;
         this._predefinedDictionary = predefinedDictionary ? predefinedDictionary : {};
     }
-    public GetDictionary<T>(name: string, useSearch?: boolean): Promise<T[]> {
+
+    public GetDictionary<T>(name: string, postfix?: string, useSearch?: boolean): Promise<T[]> {
         return new Promise((resolve) => {
             let storage = localStorage.getItem(name);
             if(storage) {

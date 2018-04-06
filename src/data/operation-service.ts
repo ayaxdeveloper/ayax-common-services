@@ -3,8 +3,6 @@ import { BaseHttpService } from "./base-http-service";
 import { OperationResult, Operation, IOperationService, IHttpService } from "ayax-common-types";
 
 export class OperationService extends BaseHttpService implements IOperationService {
-    baseUrl: string;
-    
     get<T>(url: string): AxiosPromise<OperationResult<T>> {
         return this._http.get(url);
     }

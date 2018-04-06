@@ -1,6 +1,6 @@
 {
   "name": "ayax-common-services",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Ayax Common Services",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

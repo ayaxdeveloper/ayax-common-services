@@ -21,7 +21,7 @@
   "homepage": "https://github.com/maphskiy/ayax-common-services#readme",
   "dependencies": {
     "axios": "^0.17.1",
-    "ayax-common-types": "^1.1.6",
+    "ayax-common-types": "^1.4.0",
     "moment": "^2.20.1"
   },
   "devDependencies": {}

@@ -1,4 +1,4 @@
-import { IHttpService } from "ayax-common-types";
+import { IHttpService } from "../types/http-service";
 
 export abstract class BaseHttpService {
     _http: IHttpService;

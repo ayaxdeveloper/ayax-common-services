@@ -5,6 +5,7 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
+    "strictNullChecks": false,
     // "suppressImplicitAnyIndexErrors": true
   },
   "include": [

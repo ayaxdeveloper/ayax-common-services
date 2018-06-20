@@ -14,7 +14,10 @@ export class OperationService extends BaseHttpService implements IOperationServi
     put<T>(url: any, data: any): Promise<Operation> {
         return this._http.put(url, data);
     }
-    delete<T>(url: any): Promise<Operation> {
+    delete<T>(url: any, data?: any): Promise<Operation> {
+        if(data) {
+            return this._http.delete(url, data);
+        }
         return this._http.delete(url);
     }
 }

@@ -5,5 +5,5 @@ export interface IOperationService {
     get<T>(url: string): Promise<OperationResult<T>>;
     post<T>(url: string, data: any): Promise<OperationResult<T>>;
     put<T>(url: string, data: any): Promise<Operation>;
-    delete<T>(url: string): Promise<Operation>;
+    delete<T>(url: string, data?: any): Promise<Operation>;
 }

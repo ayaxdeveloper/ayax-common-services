@@ -1,4 +1,5 @@
-import { OperationResult, Operation } from "ayax-common-types";
+import { OperationResult } from "../Operation/OperationResultT";
+import { Operation } from "../Operation/Operation";
 
 export interface IOperationService {
     baseUrl: string;

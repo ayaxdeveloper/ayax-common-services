@@ -1,6 +1,7 @@
-import { BaseHttpService } from "./base-http-service";
-import { OperationResult, Operation } from "ayax-common-types";
-import { IOperationService } from "../types/operation-service";
+import { BaseHttpService } from "../BaseHttp/BaseHttpService";
+import { IOperationService } from "../../Types/OperationService/IOperationService";
+import { OperationResult } from "../../Types/Operation/OperationResultT";
+import { Operation } from "../../Types/Operation/Operation";
 
 export class OperationService extends BaseHttpService implements IOperationService {
     get<T>(url: string): Promise<OperationResult<T>> {
